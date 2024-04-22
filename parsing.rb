@@ -1,7 +1,9 @@
 # frozen_string_literal: false
 
 require 'csv'
+require 'roo'
 require 'time'
+require 'net/http'
 
 # Parsing
 class Parsing
@@ -27,14 +29,29 @@ class Parsing
     parse_data(:docs)
   end
 
+  def xlsx_to_csv
+    # code
+  end
+
+  def actual_okato
+    url = 'https://classifikators.ru/assets/downloads/oksm/oksm.xlsx'
+    uri = URI(url)
+
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+      request = Net::HTTP::Get.new uri
+
+      http.request request do |response|
+        open 'input/oksm.xlsx', 'w' do |io|
+          response.read_body do |chunk|
+            io.write chunk
+          end
+        end
+      end
+    end
+  end
+
   def name_format(name, kind_of_info)
-    # name_rus = name
-    # start = INFO_TYPE[kind_of_info][1]
-    # name_rus = name_rus.slice(start...-6)
-    # if name_rus do
-    #   name_rus = Translit.convert(name_rus, :russian)
-    #   name_rus.gsub(/(?<=[^ ])([A-ZА-Я])/, ' \1').strip
-    # end
+    # code
   end
 
   def parse_data(kind_of_info)
@@ -51,4 +68,4 @@ class Parsing
 end
 
 a = Parsing.new
-a.run
+a.actual_okato
