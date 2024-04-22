@@ -3,7 +3,6 @@ GEM
   specs:
     ast (2.4.2)
     csv (3.3.0)
-    date (3.3.4)
     json (2.7.2)
     language_server-protocol (3.17.0.3)
     parallel (1.24.0)
@@ -28,9 +27,6 @@ GEM
     rubocop-ast (1.31.2)
       parser (>= 3.3.0.4)
     ruby-progressbar (1.13.0)
-    time (0.3.0)
-      date
-    translit (0.1.5)
     unicode-display_width (2.5.0)
 
 PLATFORMS
@@ -39,9 +35,7 @@ PLATFORMS
 
 DEPENDENCIES
   csv
-  rubocop (>= 1.60)
-  time
-  translit
+  rubocop (~> 1.60)
 
 BUNDLED WITH
    2.5.7
