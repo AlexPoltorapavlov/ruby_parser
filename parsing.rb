@@ -37,8 +37,7 @@ class Parsing
     # code
   end
 
-  def actual_okato
-    url = 'https://classifikators.ru/assets/downloads/oksm/oksm.xlsx'
+  def actual_okato(url)
     uri = URI(url)
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
