@@ -11,8 +11,12 @@ class Parsing
                 regions: ['OKATOList', 10],
                 docs: ['Kod_documentaList', 0] }.freeze
 
-  def initialize(path: 'data.csv')
+  URLS = { OKATO: 'https://classifikators.ru/assets/downloads/okato/okato.csv',
+           OKSM: 'https://classifikators.ru/assets/downloads/oksm/oksm.xlsx' }.freeze
+
+  def initialize(path: 'data.csv', references: 'references/')
     @data = CSV.read(path, headers: true)
+    @references = references
   end
 
   def data_read
@@ -41,7 +45,7 @@ class Parsing
       request = Net::HTTP::Get.new uri
 
       http.request request do |response|
-        open 'input/oksm.xlsx', 'w' do |io|
+        open "#{@references}oksm.xlsx", 'w' do |io|
           response.read_body do |chunk|
             io.write chunk
           end
