@@ -37,18 +37,15 @@ class Parsing
     # code
   end
 
-  def actual_okato(url)
-    uri = URI(url)
+  def actual_references(url)
+    uri = URI(URLS[url])
 
     Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
       request = Net::HTTP::Get.new uri
+      response = http.request request
 
-      http.request request do |response|
-        open "#{@references}oksm.xlsx", 'w' do |io|
-          response.read_body do |chunk|
-            io.write chunk
-          end
-        end
+      open 'references/okato.csv', 'wb' do |io|
+        io.write response.body
       end
     end
   end
@@ -71,4 +68,4 @@ class Parsing
 end
 
 a = Parsing.new
-a.actual_okato
+a.actual_references(:OKATO)
